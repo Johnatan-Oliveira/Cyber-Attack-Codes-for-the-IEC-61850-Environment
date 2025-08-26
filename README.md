@@ -30,5 +30,13 @@ Physical IEDs and a Windows 11 laptop used as the attacker device.
 
 Traffic capture using Wireshark for GOOSE message streams.
 
+## Library files Modification
+
+**goose_publisher.c**: This file is part of the libiec61850 library, which supports GOOSE communication. The function
+prepareGooseBuffer(GoosePublisher self, CommParameters* parameters, const char* interfaceID, bool useVlanTags)
+was modified to enable the manual configuration of the source address of the GOOSE Ethernet frame. This modification allows the transmission of a GOOSE message with the legitimate publisher’s MAC address, even though the packet originates from an attacker’s machine. Such an approach demonstrates a potential vulnerability that can be exploited in impersonation or spoofing attacks against IEC 61850-based substation networks.
+
+**goose_publisher.h**: This file is part of the libiec61850 library and contains the definition of variables and functions used in GOOSE communication. It was modified in the typedef struct sCommParameters, which stores the parameters required for publishing a GOOSE message, such as GOID, APPID, Destination MAC Address, vlanId, vlanPriority, among others. In this modification, the variable uint8_t srcAddress[6] was added to store the source MAC address of the GOOSE message. Additionally, the variable uint64_t src_timestamp was introduced to enable the manual definition of the timestamp in replay attacks, allowing the forged message to carry the same timestamp as the legitimate one previously captured by the attacker through monitoring.
+
 
 This repository is provided for academic and research use only. If you use this work in your research, please cite the original paper and this repository.
