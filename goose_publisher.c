@@ -65,7 +65,7 @@ GoosePublisher_createEx(CommParameters* parameters, const char* interfaceID, boo
 {
     GoosePublisher self = (GoosePublisher) GLOBAL_CALLOC(1, sizeof(struct sGoosePublisher));
     uint64_t publish_time = parameters->src_timestamp;
-    bool time_b = parameters->time_set;
+    
     if (self) {
 
         if (prepareGooseBuffer(self, parameters, interfaceID, useVlanTag)) {
@@ -210,7 +210,7 @@ prepareGooseBuffer(GoosePublisher self, CommParameters* parameters, const char* 
 
     uint8_t defaultDstAddr[] = CONFIG_GOOSE_DEFAULT_DST_ADDRESS;
 
-    uint8_t* src_Addr;
+    uint8_t* src_Addr;  //Declaring Variable
     uint8_t* dstAddr;
     uint8_t priority;
     uint16_t vlanId;
@@ -223,7 +223,7 @@ prepareGooseBuffer(GoosePublisher self, CommParameters* parameters, const char* 
         appId = CONFIG_GOOSE_DEFAULT_APPID;
     }
     else {
-        src_Addr = parameters->srcAddress;
+        src_Addr = parameters->srcAddress; //Getting Source Address
         dstAddr = parameters->dstAddress;
         priority = parameters->vlanPriority;
         vlanId = parameters->vlanId;
@@ -239,7 +239,7 @@ prepareGooseBuffer(GoosePublisher self, CommParameters* parameters, const char* 
         self->buffer = (uint8_t*) GLOBAL_MALLOC(GOOSE_MAX_MESSAGE_SIZE);
 
         memcpy(self->buffer, dstAddr, 6);
-        memcpy(self->buffer + 6, src_Addr, 6);
+        memcpy(self->buffer + 6, src_Addr, 6);  // Insert Source MAC Address (bytes 6–11 of Ethernet frame)
 
         int bufPos = 12;
 
