@@ -42,7 +42,6 @@ typedef struct sCommParameters {
     uint8_t dstAddress[6];
     uint8_t srcAddress[6];
     uint64_t src_timestamp;
-    bool time_set;
 } CommParameters;
 
 #endif
