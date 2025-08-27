@@ -19,6 +19,19 @@
  *  along with libIEC61850.  If not, see <http://www.gnu.org/licenses/>.
  *
  *  See COPYING file for the complete license text.
+ *
+ *   This file was slightly modified by Johnatan Oliveira for academic purposes and uses functions and libraries of functions
+ *   from the libiec61850 library for GOOSE message handling and network 
+ *   monitoring by Michael Zillgith https://libiec61850.com/, the libIEC61850 is released under the GPLv3.
+ *   
+ *   This file is part of the libiec61850 library and contains the definition 
+ *   of variables and functions used in GOOSE communication. It was modified in the typedef struct sCommParameters, 
+ *   which stores the parameters required for publishing a GOOSE message, 
+ *   such as GOID, APPID, Destination MAC Address, vlanId, vlanPriority, among others. In this modification,
+ *   the variable uint8_t srcAddress[6] was added to store the source MAC address of the GOOSE message. 
+ *   Additionally, the variable uint64_t src_timestamp was introduced to enable the manual definition of the timestamp
+ *   in replay attacks, allowing the forged message to carry the same timestamp as the legitimate one previously 
+ *   captured by the attacker through monitoring.
  */
 
 #ifndef GOOSE_PUBLISHER_H_
